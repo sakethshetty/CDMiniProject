@@ -1,0 +1,12 @@
+L' -> L
+L -> int main() begin BODY end
+BODY -> DEF B
+BODY -> IF B
+BODY -> printf( id );
+IF -> if( COND ) begin BODY end
+B -> BODY
+B -> ''
+DEF -> int LIST ;
+LIST -> id, LIST
+LIST -> id
+COND -> expr relop expr
