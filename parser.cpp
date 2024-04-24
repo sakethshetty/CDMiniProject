@@ -248,8 +248,13 @@ unordered_map<int,string> grammar = {
 
 int main(){
     
-    
-    string s = "int main ( ) begin int id , id , id ; if ( id relop id ) begin printf ( id ) ; end if ( id relop id ) begin printf ( id ) ; end if ( id relop id ) begin printf ( id ) ; end end";
+    ifstream ipfile("token.txt");
+    stringstream buffer;
+    buffer << ipfile.rdbuf();
+ 
+    string s = buffer.str();
+    //cout<<s<<"\n";
+    //s = "int main ( ) begin int id , id , id ; if ( id relop id id ) begin printf ( id ) ; end if ( id relop id ) begin printf ( id ) ; end if ( id relop id ) begin printf ( id ) ; end end";
     s += " $";
     vector<string> input;
     input = splitString(s);
@@ -269,13 +274,13 @@ int main(){
             if (action[{s,a}].second==0){
                 
                 st.push(action[{s,a}].first);
-                cout<< "matched " << a << endl;
+                cout<< "SHIFT " << a << endl;
                 i++;
             }else{
                 int no = no_of_grammar_sym[action[{s,a}].first];
                 while(no--) st.pop();
                 st.push(go_to[{st.top(),g_sym[action[{s,a}].first]}]);
-               cout << "matched " <<  g_sym[action[{s,a}].first] <<   " : "  << grammar[action[{s,a}].first] << endl;
+               cout << "REDUCE " <<  g_sym[action[{s,a}].first] <<   " : "  << grammar[action[{s,a}].first] << endl;
             }
         }
         else {
