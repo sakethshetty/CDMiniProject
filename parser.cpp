@@ -258,28 +258,40 @@ int main(){
     s += " $";
     vector<string> input;
     input = splitString(s);
-    stack<int> st;
-    st.push(0);
+    stack<int> sk;
+    sk.push(0);
     int i=0;
 
-    while(1){
+    while(i<input.size()){
+    
         string a = input[i];
-        int s = st.top();
+        if(sk.empty()){
+        	cout<<"Error\n";
+        	return 1;
+        }
+        
+        int s = sk.top();
         // cout << s << " " << a << endl;
         if (action[{s,a}].second==-1){
             cout << "Accepted" << endl;
-            break;
+            return 0;
         }
         else if (action.find({s,a})!=action.end()) {
             if (action[{s,a}].second==0){
                 
-                st.push(action[{s,a}].first);
+                sk.push(action[{s,a}].first);
                 cout<< "SHIFT " << a << endl;
                 i++;
             }else{
                 int no = no_of_grammar_sym[action[{s,a}].first];
-                while(no--) st.pop();
-                st.push(go_to[{st.top(),g_sym[action[{s,a}].first]}]);
+                while(no--){
+                	if(sk.empty()){
+						cout<<"Error\n";
+						return 1;
+					}
+                	sk.pop();
+                }
+                sk.push(go_to[{sk.top(),g_sym[action[{s,a}].first]}]);
                cout << "REDUCE " <<  g_sym[action[{s,a}].first] <<   " : "  << grammar[action[{s,a}].first] << endl;
             }
         }
@@ -289,5 +301,6 @@ int main(){
         }
     }
      
+    if(!sk.empty())	cout<<"Error\n";
     return 0;
 }
