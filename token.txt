@@ -1,0 +1,1 @@
+int main ( ) begin int id , id , id ; if ( id relop id ) begin printf ( id ) ; end if ( id relop id ) begin printf ( id ) ; end if ( id relop id ) begin printf ( id ) ; end end 

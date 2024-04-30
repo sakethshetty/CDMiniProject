@@ -272,12 +272,14 @@ int main(){
         
         int s = sk.top();
         // cout << s << " " << a << endl;
-        if (action[{s,a}].second==-1){
-            cout << "Accepted" << endl;
-            return 0;
-        }
-        else if (action.find({s,a})!=action.end()) {
-            if (action[{s,a}].second==0){
+        
+        if (action.find({s,a})!=action.end()) {
+        
+        	if (action[{s,a}].second==-1){
+		        cout << "Accepted" << endl;
+		        return 0;
+        	}		
+            else if (action[{s,a}].second==0){
                 
                 sk.push(action[{s,a}].first);
                 cout<< "SHIFT " << a << endl;
@@ -297,10 +299,10 @@ int main(){
         }
         else {
             cout << "Error" << endl;
-            break;
+            return 1;
         }
     }
      
     if(!sk.empty())	cout<<"Error\n";
-    return 0;
+    return 1;
 }
